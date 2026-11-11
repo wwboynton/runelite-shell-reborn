@@ -1,17 +1,17 @@
 package io.spewbert.shellreborn;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Random;
 import net.runelite.api.CollisionDataFlag;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class IslandTest
+public class IslandTest
 {
 	private static final int FULL = CollisionDataFlag.BLOCK_MOVEMENT_FULL;
 
@@ -27,7 +27,7 @@ class IslandTest
 	}
 
 	@Test
-	void wanderStaysOnTheLeash()
+	public void wanderStaysOnTheLeash()
 	{
 		Island island = new Island(0, meadow(), 10, 10, 3);
 		Random random = new Random(1);
@@ -37,16 +37,16 @@ class IslandTest
 		{
 			for (int[] step : island.wander(x, y, 1 + random.nextInt(3), random))
 			{
-				assertTrue(Math.abs(step[0] - x) <= 1 && Math.abs(step[1] - y) <= 1, "one tile at a time");
+				assertTrue("one tile at a time", Math.abs(step[0] - x) <= 1 && Math.abs(step[1] - y) <= 1);
 				x = step[0];
 				y = step[1];
-				assertTrue(island.onLeash(x, y), "left the leash at " + x + "," + y);
+				assertTrue("left the leash at " + x + "," + y, island.onLeash(x, y));
 			}
 		}
 	}
 
 	@Test
-	void waterIsNotGround()
+	public void waterIsNotGround()
 	{
 		int[][] flags = meadow();
 		// water everywhere but a plus shape round home
@@ -64,7 +64,7 @@ class IslandTest
 		{
 			for (int[] step : island.wander(10, 10, 3, random))
 			{
-				assertEquals(0, flags[step[0]][step[1]], "walked into water at " + step[0] + "," + step[1]);
+				assertEquals("walked into water at " + step[0] + "," + step[1], 0, flags[step[0]][step[1]]);
 			}
 		}
 		// a diagonal with water on one of its straight halves is not allowed, nor one into water
@@ -73,7 +73,7 @@ class IslandTest
 	}
 
 	@Test
-	void wallsBlockStraightSteps()
+	public void wallsBlockStraightSteps()
 	{
 		int[][] flags = meadow();
 		flags[11][10] |= CollisionDataFlag.BLOCK_MOVEMENT_WEST;
@@ -83,7 +83,7 @@ class IslandTest
 	}
 
 	@Test
-	void spawnsAtHomeOrTheNearestOpenTile()
+	public void spawnsAtHomeOrTheNearestOpenTile()
 	{
 		int[][] flags = meadow();
 		assertArrayEquals(new int[]{10, 10}, new Island(0, flags, 10, 10, 3).spawnTile());
@@ -93,7 +93,7 @@ class IslandTest
 	}
 
 	@Test
-	void noGroundNoSnail()
+	public void noGroundNoSnail()
 	{
 		int[][] flags = meadow();
 		for (int x = 1; x < 19; x++)

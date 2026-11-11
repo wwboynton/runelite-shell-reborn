@@ -1,25 +1,26 @@
 package io.spewbert.shellreborn;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class SnailNamesTest
+public class SnailNamesTest
 {
 	@Test
-	void thirteenNamesFromOne()
+	public void thirteenNamesFromOne()
 	{
 		assertEquals(13, SnailNames.NAMES.size());
 		assertNull(SnailNames.fromVarbit(0));
 		assertEquals("Sprout", SnailNames.fromVarbit(1));
+		assertEquals("Sadie", SnailNames.fromVarbit(3));
 		assertEquals("Smudge", SnailNames.fromVarbit(13));
 		assertNull(SnailNames.fromVarbit(14));
 		assertNull(SnailNames.fromVarbit(-1));
 	}
 
 	@Test
-	void overrideWinsThenGameThenNpcName()
+	public void overrideWinsThenGameThenNpcName()
 	{
 		assertEquals("Gary", SnailNames.resolve("  Gary ", 6));
 		assertEquals("Sushi", SnailNames.resolve("", 6));

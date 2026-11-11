@@ -158,7 +158,7 @@ public class ShellRebornPlugin extends Plugin
 			// the client can let go of a registered object (a scene rebuilt under it): put it back
 			if (!client.isRuneLiteObjectRegistered(snail))
 			{
-				log.info("[shell-reborn] the client dropped her; registering her again");
+				log.debug("[shell-reborn] the client dropped her; registering her again");
 				client.registerRuneLiteObject(snail);
 			}
 			return;
@@ -181,7 +181,7 @@ public class ShellRebornPlugin extends Plugin
 		if (tile == null)
 		{
 			noGround = true;
-			log.info("[shell-reborn] no open tile within {} of {} in this scene; not drawing her", LEASH, HOME);
+			log.debug("[shell-reborn] no open tile within {} of {} in this scene; not drawing her", LEASH, HOME);
 			return;
 		}
 		if (!loadAssets())
@@ -190,7 +190,7 @@ public class ShellRebornPlugin extends Plugin
 		}
 		snail = new Snail(client, island, tile, model, stand, walk, random, wv.getId());
 		client.registerRuneLiteObject(snail);
-		log.info("[shell-reborn] drawn at scene {},{} (home {},{}), name {}", tile[0], tile[1], home.getSceneX(), home.getSceneY(), name());
+		log.debug("[shell-reborn] drawn at scene {},{} (home {},{}), name {}", tile[0], tile[1], home.getSceneX(), home.getSceneY(), name());
 	}
 
 	private void despawn()
@@ -239,7 +239,7 @@ public class ShellRebornPlugin extends Plugin
 		NPCComposition def = client.getNpcDefinition(SNAIL_NPC);
 		if (def == null || def.getModels() == null || def.getModels().length == 0)
 		{
-			log.info("[shell-reborn] NPC {} has no models in this cache", SNAIL_NPC);
+			log.debug("[shell-reborn] NPC {} has no models in this cache", SNAIL_NPC);
 			return null;
 		}
 		int[] ids = def.getModels();
@@ -338,7 +338,7 @@ public class ShellRebornPlugin extends Plugin
 		if (!state.equals(loggedState))
 		{
 			loggedState = state;
-			log.info("[shell-reborn] {}", state);
+			log.debug("[shell-reborn] {}", state);
 		}
 	}
 }

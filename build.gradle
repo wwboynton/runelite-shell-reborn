@@ -1,39 +1,52 @@
 plugins {
-    id 'java'
+	id 'java'
 }
 
 repositories {
-    mavenCentral()
-    maven { url = uri('https://repo.runelite.net') }
+	mavenLocal()
+	maven {
+		url = 'https://repo.runelite.net'
+		content {
+			includeGroupByRegex("net\\.runelite.*")
+		}
+	}
+	mavenCentral()
 }
 
-// Match the latest published client: the dev-mode launcher (bank-layouts-editor/runelite-bridge/run.ps1)
-// runs the newest release from repo.runelite.net, and sideloaded jars load into that client.
-def runeLiteVersion = '1.13.6'
+def runeLiteVersion = 'latest.release'
+def pluginMainClass = 'io.spewbert.shellreborn.ShellRebornPluginTest'
 
 dependencies {
-    compileOnly "net.runelite:client:$runeLiteVersion"
-    // the tests cover the pure classes, which use only the API's constants (CollisionDataFlag)
-    testImplementation("net.runelite:runelite-api:$runeLiteVersion") { transitive = false }
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+
+	testImplementation 'junit:junit:4.12'
+	testImplementation group: 'net.runelite', name: 'client', version: runeLiteVersion
+	testImplementation group: 'net.runelite', name: 'jshell', version: runeLiteVersion
 }
 
 group = 'io.spewbert'
 version = file('VERSION').text.trim()
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-    options.release = 11
+	options.encoding = 'UTF-8'
+	options.release.set(11)
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
-    testLogging {
-        events 'passed', 'failed', 'skipped'
-    }
+	testLogging {
+		events 'passed', 'failed', 'skipped'
+	}
 }
 
 jar {
-    archiveBaseName = 'shellreborn'
+	archiveBaseName = 'shellreborn'
+}
+
+// Starts RuneLite in developer mode with the plugin loaded, as the plugin template does.
+tasks.register('run', JavaExec) {
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = pluginMainClass
+
+	jvmArgs "-ea"
+	args "--developer-mode", "--debug"
 }
