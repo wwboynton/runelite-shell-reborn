@@ -24,3 +24,7 @@ build/
 bin/
 out/
 *.class
+
+# Local development tools (sideload script, cache reader)
+scripts/
+tools/
