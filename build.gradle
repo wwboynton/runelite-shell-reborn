@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = uri('https://repo.runelite.net') }
+}
+
+// Match the latest published client: the dev-mode launcher (bank-layouts-editor/runelite-bridge/run.ps1)
+// runs the newest release from repo.runelite.net, and sideloaded jars load into that client.
+def runeLiteVersion = '1.13.6'
+
+dependencies {
+    compileOnly "net.runelite:client:$runeLiteVersion"
+    // the tests cover the pure classes, which use only the API's constants (CollisionDataFlag)
+    testImplementation("net.runelite:runelite-api:$runeLiteVersion") { transitive = false }
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+group = 'io.spewbert'
+version = file('VERSION').text.trim()
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 11
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+    }
+}
+
+jar {
+    archiveBaseName = 'shellreborn'
+}

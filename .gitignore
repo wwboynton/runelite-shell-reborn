@@ -1,0 +1,26 @@
+# Secrets / local config
+.env
+.env.*
+!.env.example
+*.local
+config.local.*
+*.key
+*.pem
+
+# Personal notes
+.wes/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+
+# Gradle / Java build output
+.gradle/
+build/
+bin/
+out/
+*.class

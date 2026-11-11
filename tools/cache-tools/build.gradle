@@ -1,0 +1,28 @@
+// Dev tool, not part of the plugin: reads a copy of the game cache with RuneLite's cache library to find the
+// quest's NPCs, models and animations. Run from the repo root:
+//   .\gradlew.bat -p tools\cache-tools run --args="--cache <copy of ~/.runelite/jagexcache/oldschool/LIVE> newest npcs 60"
+// Read a copy: the library opens the cache files read-write.
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = uri('https://repo.runelite.net') }
+}
+
+dependencies {
+    implementation 'net.runelite:cache:1.13.6'
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.36'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+application {
+    mainClass = 'shellreborn.cachetools.CacheQuery'
+    applicationDefaultJvmArgs = ['-Xmx2g']
+}
