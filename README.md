@@ -24,7 +24,6 @@ the spot where you first met her.
 | Show the snail | Turns her on or off. |
 | Only after the quest | Shows her only once A Shell of a Friend is complete. Turn it off to see her any time. |
 | Name override | Leave it blank to use the name from the quest, or type any name. |
-| Examine descriptions | The pool of descriptions, one per line. `{name}` becomes her name. Lines starting with `#` are skipped. |
 
 ## How it works
 

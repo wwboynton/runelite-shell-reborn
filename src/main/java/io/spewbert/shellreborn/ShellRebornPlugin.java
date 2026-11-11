@@ -27,7 +27,6 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
@@ -35,7 +34,7 @@ import net.runelite.client.plugins.PluginDescriptor;
  * Shell Reborn: the juvenile snail from A Shell of a Friend, back on her island in the Haunted Woods once the
  * quest is done, wandering her patch by the shelter. She is a client-side object only: nothing here sends
  * anything to the server. Her name is the one picked in the quest (varbit 16855); hovering her shows it, and
- * Examine prints a random description of her from the config's pool. She has no dialogue of her own.
+ * Examine prints a random description of her doing well. She has no dialogue of her own.
  *
  * <p>IDs are raw because the quest is newer than RuneLite's gameval names (2026-11-11). All of them come from
  * the cache of that day: NPC 16882 {@code snailquest_snail}, varbit 16854 {@code snailquest} (the quest stage,
@@ -71,7 +70,7 @@ public class ShellRebornPlugin extends Plugin
 	private ShellRebornConfig config;
 
 	private final Random random = new Random();
-	private SnailLines lines;
+	private final SnailLines lines = new SnailLines();
 
 	private Snail snail;
 	private Model model;
@@ -89,12 +88,6 @@ public class ShellRebornPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp()
-	{
-		lines = new SnailLines(config.descriptions());
-	}
-
-	@Override
 	protected void shutDown()
 	{
 		clientThread.invoke(() ->
@@ -105,15 +98,6 @@ public class ShellRebornPlugin extends Plugin
 			walk = null;
 			loggedState = null;
 		});
-	}
-
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (ShellRebornConfig.GROUP.equals(event.getGroup()) && "descriptions".equals(event.getKey()))
-		{
-			lines = new SnailLines(config.descriptions());
-		}
 	}
 
 	@Subscribe
