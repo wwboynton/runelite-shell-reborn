@@ -17,7 +17,7 @@ public class SnailLinesTest
 	public void fillsInTheName()
 	{
 		SnailLines lines = new SnailLines(Collections.singletonList("{name} wobbles happily."));
-		assertEquals("Smudge wobbles happily.", lines.next(new Random(), "Smudge"));
+		assertEquals("Smudge wobbles happily.", lines.next(new Random(), "Smudge", Pronouns.THEY));
 	}
 
 	@Test
@@ -28,7 +28,7 @@ public class SnailLinesTest
 		String last = null;
 		for (int i = 0; i < 300; i++)
 		{
-			String text = lines.next(random, "x");
+			String text = lines.next(random, "x", Pronouns.THEY);
 			assertNotEquals(last, text);
 			last = text;
 		}
@@ -37,7 +37,7 @@ public class SnailLinesTest
 	@Test
 	public void emptyPoolSaysNothing()
 	{
-		assertNull(new SnailLines(Collections.emptyList()).next(new Random(), "x"));
+		assertNull(new SnailLines(Collections.emptyList()).next(new Random(), "x", Pronouns.THEY));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class SnailLinesTest
 		Random random = new Random(4);
 		for (int i = 0; i < 50; i++)
 		{
-			String text = lines.next(random, "Sadie");
+			String text = lines.next(random, "Sadie", Pronouns.SHE);
 			assertFalse(text, text.contains("{name}"));
 		}
 	}

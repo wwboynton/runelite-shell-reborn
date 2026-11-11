@@ -41,4 +41,15 @@ public interface ShellRebornConfig extends Config
 	{
 		return "";
 	}
+
+	@ConfigItem(
+		keyName = "pronouns",
+		name = "Pronouns",
+		description = "How the examine descriptions refer to the snail. Once named, the quest calls the snail \"they\"",
+		position = 3
+	)
+	default Pronouns pronouns()
+	{
+		return Pronouns.THEY;
+	}
 }

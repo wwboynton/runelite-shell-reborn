@@ -296,7 +296,7 @@ public class ShellRebornPlugin extends Plugin
 
 	private void examine()
 	{
-		String text = lines.next(random, name());
+		String text = lines.next(random, name(), config.pronouns());
 		if (text != null)
 		{
 			client.addChatMessage(ChatMessageType.NPC_EXAMINE, "", text, null);

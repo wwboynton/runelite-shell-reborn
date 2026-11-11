@@ -15,7 +15,7 @@ the spot where you first met her.
 - **She remembers her name.** Hovering over her shows the name you picked during the quest, read from the game's own
   record of your choice. You don't need to replay anything.
 - **Examine her** to see how she's getting on. Each examine prints a random description in the chat, such as
-  *"Sadie peeks out of her shelter, then sways in greeting. The leeches don't seem to bother her any more."*
+  *"Sadie peeks out of their shelter, then sways in greeting. The leeches don't seem to bother them any more."*
 
 ## Settings
 
@@ -24,6 +24,7 @@ the spot where you first met her.
 | Show the snail | Turns her on or off. |
 | Only after the quest | Shows her only once A Shell of a Friend is complete. Turn it off to see her any time. |
 | Name override | Leave it blank to use the name from the quest, or type any name. |
+| Pronouns | He/Him, She/Her or They/Them in the examine descriptions. They/Them is the default, as the quest calls the snail once named. |
 
 ## How it works
 
